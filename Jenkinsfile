@@ -5,6 +5,7 @@ pipeline {
         stage('Hello') {
             steps {
                 sh 'env'
+                sh 'whoami'
             }
         }
     }
