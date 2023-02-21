@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     stages {
         stage("Using curl example") {
             steps {
