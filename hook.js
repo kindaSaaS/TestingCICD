@@ -1,16 +1,10 @@
-Java.perform(function() {
-    var Jenkins = Java.use('jenkins.model.Jenkins');
-    var Queue = Java.use('jenkins.model.Jenkins$Queue');
-    var Run = Java.use('hudson.model.Run');
-    var ParametersAction = Java.use('hudson.model.ParametersAction');
+var target = Process.getFromName("jenkins");
 
-    Jenkins.buildWithParameters.implementation = function(params) {
-        console.log('Build parameters:', JSON.stringify(params));
-        var queueItem = Queue.getInstance().getItem(this, params.job);
-        var run = Run.fromQueueItem(queueItem);
-        if (run != null) {
-            console.log('Build URL:', run.getUrl());
-        }
-        return this.build(params.job);
-    };
+// Define the function to hook
+var httpRequest = Module.findExportByName("libjenkins-core.so", "_ZN15hudson/Functions10httpGetURLERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEj");
+
+Interceptor.attach(httpRequest, {
+    onEnter: function(args) {
+        console.log("HTTP request made to URL: " + args[0].readUtf8String());
+    }
 });
