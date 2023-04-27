@@ -1,12 +1,17 @@
-// Attach to the target process with PID 4121
-var target = Process.get(4121);
+// Define the constructor signature
+var runConstructor = new NativeFunction(ptr("0x12345678"), 'void', ['pointer', 'pointer', 'pointer']);
 
-// Define the function to hook
-var httpRequest = Module.findExportByName("libjenkins-core.so", "_ZN15hudson/Functions10httpGetURLERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEj");
-
-// Intercept the HTTP request function
-Interceptor.attach(httpRequest, {
+// Intercept the constructor call
+Interceptor.attach(runConstructor, {
     onEnter: function(args) {
-        console.log("HTTP request made to URL: " + args[0].readUtf8String());
+        // args[0] is the this pointer
+        // args[1] is the hudson.model.Job object
+        // args[2] is the hudson.model.Environment object
+
+        // Log the arguments to the constructor
+        console.log("Run constructor called with arguments:");
+        console.log("this: " + args[0]);
+        console.log("job: " + args[1]);
+        console.log("env: " + args[2]);
     }
 });
