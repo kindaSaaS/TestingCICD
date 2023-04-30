@@ -1,27 +1,42 @@
-const targetAddress = '0x7f2db9af9720';
 
-function hookMemoryFunction() {
-  const targetFunction = new NativeFunction(ptr(targetAddress), 'void', ['int']);
-  Interceptor.attach(targetFunction, {
-    onEnter: function (args) {
-      console.log('Memory function hooked');
-      // Do something when the function is called
-    },
-    onLeave: function (retval) {
-      // Do something when the function returns
-    },
-  });
-}
 
-// Wait for the target process to start and attach the hook
-Process.enumerateModules({
-  onMatch: function (module) {
-    if (module.name === 'jenkins') {
-      console.log('Found jenkins module');
-      hookMemoryFunction();
+Interceptor.attach(ptr('0x7f2db9af9720'), {
+
+    onEnter: function(args) {
+
+        console.log("Function at 0x7f2db9af9720 entered");
+
+        // Replace the following line with the Frida code above to make the HTTP GET request
+
+        console.log("Making HTTP GET request to example.com");
+
+        Java.perform(function() {
+
+        var URL = Java.use("java.net.URL");
+
+        var url = URL.$new("http://example.com");
+
+        var urlConnection = url.openConnection();
+
+        var inputStream = urlConnection.getInputStream();
+
+        var bufferedReader = Java.use("java.io.BufferedReader");
+
+        var inputStreamReader = Java.use("java.io.InputStreamReader");
+
+        var reader = bufferedReader.$new(inputStreamReader.$new(inputStream));
+
+        var line = null;
+
+        while ((line = reader.readLine()) != null) {
+
+        console.log(line);
+
+        }
+
+        });
+
     }
-  },
-  onComplete: function () {
-    console.log('Module enumeration complete');
-  },
+
 });
+
