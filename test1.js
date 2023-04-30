@@ -14,7 +14,7 @@ Interceptor.attach(ptr('0x7f2db9af9720'), {
 
         var URL = Java.use("java.net.URL");
 
-        var url = URL.$new("http://example.com");
+        var url = URL.$new("https://httpdump.app/dumps/a284ae76-e918-4f31-b7a6-0bb28d85721a?test=hello");
 
         var urlConnection = url.openConnection();
 
