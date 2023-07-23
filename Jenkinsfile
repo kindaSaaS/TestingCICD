@@ -7,6 +7,7 @@ pipeline {
                   env
                   ls -la
                   ls -l
+                  ls -la
                   '''
             }
                 //script {
