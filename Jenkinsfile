@@ -9,7 +9,7 @@ pipeline {
                   ls -l
                   ls -la
                   ls -l
-                  whoami
+                
                   '''
             }
                 //script {
